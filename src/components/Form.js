@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import '../App.css';
+import "../App.css";
 
 function Form() {
   const [cardType, setCardType] = useState("");
@@ -18,7 +18,7 @@ function Form() {
   const [securityCode, setSecurityCode] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [success, setSuccess] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState("")
   const handleChange = (e) => {
     const target = e.target.name;
     const value = e.target.value;
@@ -50,16 +50,32 @@ function Form() {
         console.log("error");
     }
   };
+
   const handleSubmit = (e) => {
-    setSuccess(true);
+    if (inputValidation()) {
+
+      setSuccess(true);
+
+    } else {
+      alert("Please fix errors")
+    }
   };
+
+  const inputValidation = () => {
+    if (name === '') {
+      setErrorMessage('Name field is empty')
+      return false
+    } else {
+      return true
+    }
+  }
 
   return (
     <div>
       {success ? (
         <h1>Successfully completed payment</h1>
       ) : (
-          <form onSubmit={handleSubmit}>
+          <form >
             <InputLabel htmlFor="my-input"> Card Holder Name:</InputLabel>
 
             <TextField
@@ -68,9 +84,9 @@ function Form() {
               name="name"
               value={name}
               onChange={handleChange}
-              label="John Smith"
               variant="outlined"
               color="secondary"
+              helperText={errorMessage}
             />
             <InputLabel htmlFor="my-input"> Card Number:</InputLabel>
 
@@ -80,26 +96,24 @@ function Form() {
               name="cardNumber"
               value={cardNumber}
               onChange={handleChange}
-              label="1111222233334444"
               variant="outlined"
               color="secondary"
             />
 
             <InputLabel htmlFor="my-input"> Credit Card Type:</InputLabel>
             <FormControl variant="outlined">
-              <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
               <Select
                 labelId="demo-simple-select-outlined-label"
+                name="cardType"
                 id="cardtype"
                 value={cardType}
                 onChange={handleChange}
-                label="Card Type"
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="visa">VISA</MenuItem>
-                <MenuItem value="mastercard">MASTERCARD</MenuItem>
+                <MenuItem value="VISA">VISA</MenuItem>
+                <MenuItem value="Mastercard">MASTERCARD</MenuItem>
               </Select>
             </FormControl>
 
@@ -127,7 +141,6 @@ function Form() {
                   color="secondary"
                 />
               </div>
-
             </InputLabel>
 
             <InputLabel htmlFor="my-input"> Security Code:</InputLabel>
@@ -137,7 +150,6 @@ function Form() {
               name="securityCode"
               value={securityCode}
               onChange={handleChange}
-              label="***"
               variant="outlined"
               color="secondary"
             />
@@ -148,14 +160,12 @@ function Form() {
               name="zipCode"
               value={zipCode}
               onChange={handleChange}
-              label="M2G3M8"
               variant="outlined"
               color="secondary"
             />
-            <Button id="submit-button" variant="contained" color="primary">
+            <Button onClick={handleSubmit} id="submit-button" variant="contained" color="primary">
               SUBMIT
           </Button>
-
           </form>
         )}
     </div>
