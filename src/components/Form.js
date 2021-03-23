@@ -1,4 +1,13 @@
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import React, { useState } from "react";
+import '../App.css';
 
 function Form() {
   const [cardType, setCardType] = useState("");
@@ -51,82 +60,106 @@ function Form() {
         <h1>Successfully completed payment</h1>
       ) : (
           <form onSubmit={handleSubmit}>
-            <label>
-              Card Holder Name:
-            <input
-                id="name"
-                type="text"
-                name="name"
-                value={name}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Card Number:
-            <input
-                id="cardnumber"
-                type="text"
-                name="cardNumber"
-                value={cardNumber}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Credit Card Type:
-            <select
+            <InputLabel htmlFor="my-input"> Card Holder Name:</InputLabel>
+
+            <TextField
+              id="name"
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleChange}
+              label="John Smith"
+              variant="outlined"
+              color="secondary"
+            />
+            <InputLabel htmlFor="my-input"> Card Number:</InputLabel>
+
+            <TextField
+              id="cardnumber"
+              type="text"
+              name="cardNumber"
+              value={cardNumber}
+              onChange={handleChange}
+              label="1111222233334444"
+              variant="outlined"
+              color="secondary"
+            />
+
+            <InputLabel htmlFor="my-input"> Credit Card Type:</InputLabel>
+            <FormControl variant="outlined">
+              <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
                 id="cardtype"
-                name="cardType"
                 value={cardType}
                 onChange={handleChange}
+                label="Card Type"
               >
-                <option value="visa">VISA</option>
-                <option value="mastercard">Mastercard</option>
-              </select>
-            </label>
-            <label>
-              Expiration Date:
-            <input
-                id="expiration-month"
-                type="text"
-                name="expirationMonth"
-                value={expirationMonth}
-                onChange={handleChange}
-              />
-              <input
-                id="expiration-year"
-                type="text"
-                name="expirationYear"
-                value={expirationYear}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Security Code:
-            <input
-                id="security-code"
-                type="password"
-                name="securityCode"
-                value={securityCode}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Zip Code:
-            <input
-                id="zipcode"
-                type="text"
-                name="zipCode"
-                value={zipCode}
-                onChange={handleChange}
-              />
-            </label>
-            <input id="submit-button" type="submit" value="Submit" />
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="visa">VISA</MenuItem>
+                <MenuItem value="mastercard">MASTERCARD</MenuItem>
+              </Select>
+            </FormControl>
+
+            <InputLabel id="demo-simple-select-outlined-label">
+              Expiration Date:{" "}
+              <div className="expiry-date-container">
+                <TextField
+                  id="expiration-month"
+                  type="text"
+                  name="expirationMonth"
+                  value={expirationMonth}
+                  onChange={handleChange}
+                  label="04"
+                  variant="outlined"
+                  color="secondary"
+                />
+                <TextField
+                  id="expiration-year"
+                  type="text"
+                  name="expirationYear"
+                  value={expirationYear}
+                  onChange={handleChange}
+                  label="21"
+                  variant="outlined"
+                  color="secondary"
+                />
+              </div>
+
+            </InputLabel>
+
+            <InputLabel htmlFor="my-input"> Security Code:</InputLabel>
+            <TextField
+              id="security-code"
+              type="password"
+              name="securityCode"
+              value={securityCode}
+              onChange={handleChange}
+              label="***"
+              variant="outlined"
+              color="secondary"
+            />
+            <InputLabel htmlFor="my-input">Zip Code</InputLabel>
+            <TextField
+              id="zipcode"
+              type="text"
+              name="zipCode"
+              value={zipCode}
+              onChange={handleChange}
+              label="M2G3M8"
+              variant="outlined"
+              color="secondary"
+            />
+            <Button id="submit-button" variant="contained" color="primary">
+              SUBMIT
+          </Button>
+
           </form>
         )}
     </div>
   );
 }
-
-
 
 export default Form;
